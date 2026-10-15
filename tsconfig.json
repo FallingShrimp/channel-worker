@@ -10,8 +10,8 @@
         "strict": true,
         "skipLibCheck": true,
         "paths": {
-            "@client/*": [
-                "src/client/*"
+            "channel-slot/*": [
+                "src/*"
             ]
         },
         "baseUrl": "."

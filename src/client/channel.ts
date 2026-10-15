@@ -1,8 +1,7 @@
-import { currentStamp } from "../utils/time";
 import { Events } from "./events";
 import { MessageDriver } from "./protocol";
 
-export class SyncSlot<T> {
+export class ChannelSlot<T> {
     private drivers: MessageDriver<unknown, unknown[], T>[];
 
     constructor(public name: string, private currentValue: T) {

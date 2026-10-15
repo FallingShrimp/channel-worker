@@ -1,4 +1,4 @@
-import { defineDriver } from "@client/driver";
+import { defineDriver } from "channel-slot/client/driver";
 
 export default defineDriver<Worker, [string]>(() => {
     const clients: Worker[] = [];
