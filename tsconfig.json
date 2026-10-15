@@ -9,5 +9,11 @@
         "declarationMap": true,
         "strict": true,
         "skipLibCheck": true,
+        "paths": {
+            "@client/*": [
+                "src/client/*"
+            ]
+        },
+        "baseUrl": "."
     }
 }
