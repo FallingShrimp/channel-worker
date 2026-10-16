@@ -1,4 +1,4 @@
-import { Events } from "./events";
+import { EventMap, Events } from "./events";
 
 export interface DriverHooks {
     timestamp(): number;

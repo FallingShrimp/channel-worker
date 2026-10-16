@@ -1,5 +1,5 @@
 import { timestamp } from "channel-slot/utils/time";
-import { BaseEvent, Events } from "./events";
+import { BaseEvent, EventMap, Events } from "./events";
 import { DriverClient, DriverContext } from "./protocol";
 
 export class ChannelSlot<T> {
@@ -24,8 +24,11 @@ export class ChannelSlot<T> {
     private update(value: T) {
         this.currentValue = value;
     }
-    private emit(type: Events["type"], event: Omit<Events, keyof BaseEvent>) {
-        this.drivers.forEach(d => d.emit({ ...event, type, timestamp: d.hooks?.timestamp?.() ?? timestamp() }));
+    private emit<E extends keyof EventMap>(
+        type: E,
+        event: Omit<EventMap[E], keyof BaseEvent>
+    ) {
+        this.drivers.forEach(d => d.emit({ ...event, type } as EventMap<T>[E]));
     }
 
     public drive(...drivers: DriverContext<DriverClient<unknown, unknown[], T>>[]) {
