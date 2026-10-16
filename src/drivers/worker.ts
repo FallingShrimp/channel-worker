@@ -1,13 +1,18 @@
-import { defineDriver } from "channel-slot/client";
+import { createDriver } from "channel-slot/client";
 
-export default defineDriver<Worker, [url: string]>((context) => ({
+export default createDriver<Worker, [url: string]>((context) => ({
     create(url) {
         return new Worker(url);
     },
-    subscribe(callback, client) {
-        client.addEventListener("message", e => callback(e.data));
+    subscribe(callback) {
+        context.clients.forEach(c => c.addEventListener("message", e => callback(e.data)));
     },
     emit(event) {
         context.clients.forEach(c => c.postMessage(event));
     },
+    hooks: {
+        timestamp() {
+            return performance.now();
+        },
+    }
 }));
