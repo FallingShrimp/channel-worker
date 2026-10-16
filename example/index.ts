@@ -1,6 +1,4 @@
-import { text, workerDriver } from "./slots";
-import { toWorkerUrl } from "channel-slot/utils/url";
+import { WorkerDriver } from "channel-slot/drivers";
+import { text } from "./slots";
 
-const worker = workerDriver.create(toWorkerUrl(({ a, b, c, text }) => {
-    console.log(a, b, c, text);
-}, { a: 1, b: 2, c: 3, text }));
+text.drive(WorkerDriver<string>().addClient());

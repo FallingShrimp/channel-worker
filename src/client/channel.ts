@@ -1,6 +1,6 @@
 import { timestamp } from "channel-slot/utils/time";
 import { Events } from "./events";
-import { DriverClient } from "./protocol";
+import { DriverClient, DriverContext } from "./protocol";
 
 export class ChannelSlot<T> {
     private drivers: DriverClient<unknown, unknown[], T>[];
@@ -24,10 +24,10 @@ export class ChannelSlot<T> {
         this.drivers.forEach(d => d.emit({ ...event, type, timestamp: d.hooks?.timestamp?.() ?? timestamp() }));
     }
 
-    public drive(...drivers: DriverClient<unknown, unknown[], T>[]) {
-        for (const driver of drivers) {
-            this.drivers.push(driver);
-            driver.subscribe((e) => {
+    public drive(...drivers: DriverContext<DriverClient<unknown, unknown[], T>>[]) {
+        for (const context of drivers) {
+            this.drivers.push(context.driver);
+            context.driver.subscribe((e) => {
                 if (e.type === "sync") { this.update(e.data); }
             });
         }

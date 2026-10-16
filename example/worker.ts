@@ -1,3 +1,4 @@
-import { workerDriver } from "./slots";
+import { SelfDriver } from "channel-slot/drivers";
+import { text } from "./slots";
 
-workerDriver.create("")
+text.drive(SelfDriver<string>().addClient(self));

@@ -9,10 +9,5 @@ export default createDriver<Worker, [url: string]>((context) => ({
     },
     emit(event) {
         context.clients.forEach(c => c.postMessage(event));
-    },
-    hooks: {
-        timestamp() {
-            return performance.now();
-        },
     }
 }));

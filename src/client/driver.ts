@@ -1,15 +1,20 @@
 import { DriverClient, DriverContext } from "./protocol";
 
-export function createDriver<P, I extends unknown[]>(data: <E>(context: DriverContext<DriverClient<P, I, E>>) => DriverClient<P, I, E>) {
-    return () => {
-        const context: DriverContext<DriverClient<P, I, unknown>> = {
+export function createDriver<P, I extends unknown[]>(data: <E>(context: DriverContext<DriverClient<P, I, E>>) => Omit<DriverClient<P, I, E>, "$INFER">) {
+    return <E>() => {
+        const context: DriverContext<DriverClient<P, I, E>> = {
             clients: [],
-            *eachClient() {
-                for (const client of this.clients) {
-                    yield client;
-                }
+            addClient(...args: I) {
+                const client = context.driver.create(...args);
+                this.clients.push(client);
+                return this;
             },
+            driver: null!
         };
-        return { driver: data(context), context };
+        context.driver = {
+            ...data<E>(context),
+            $INFER: null!
+        };
+        return context;
     };
 }

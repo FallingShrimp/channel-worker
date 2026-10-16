@@ -10,6 +10,9 @@
         "strict": true,
         "skipLibCheck": true,
         "paths": {
+            "channel-slot": [
+                "src/index.ts"
+            ],
             "channel-slot/*": [
                 "src/*"
             ]
