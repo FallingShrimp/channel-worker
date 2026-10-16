@@ -2,7 +2,9 @@
     "compilerOptions": {
         "module": "nodenext",
         "target": "esnext",
-        "types": [],
+        "types": [
+            "node"
+        ],
         "moduleResolution": "nodenext",
         "sourceMap": true,
         "declaration": true,

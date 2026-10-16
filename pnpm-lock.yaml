@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@types/node':
+        specifier: ^26.6.5
+        version: 26.6.5
       tsup:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.9.3)
@@ -334,6 +337,9 @@ packages:
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
 
+  '@types/node@26.6.5':
+    resolution: {integrity: sha512-uMzsv9stDdofIZBx4UGh4Z9ZgXnGC9seRDscilBcTHAeOFk67MZg/k9bWVfO+bk4qZmG+l52hRnLwUiH2LnJTg==}
+
   acorn@8.19.0:
     resolution: {integrity: sha512-oJlA3XiRm7Cyk6qFD2Jn8ak9B7jSy0qy00ADO3+8dpT0LSjFihQYv4C02LFCSYJV3Q37xYwwRy5m+IpIiUzqWw==}
     engines: {node: '>=0.4.0'}
@@ -527,6 +533,9 @@ packages:
   ufo@1.6.4:
     resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}
 
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
+
 snapshots:
 
   '@esbuild/aix-ppc64@0.28.2':
@@ -700,6 +709,10 @@ snapshots:
     optional: true
 
   '@types/estree@1.0.9': {}
+
+  '@types/node@26.6.5':
+    dependencies:
+      undici-types: 8.9.0
 
   acorn@8.19.0: {}
 
@@ -907,3 +920,5 @@ snapshots:
   typescript@5.9.3: {}
 
   ufo@1.6.4: {}
+
+  undici-types@8.9.0: {}
