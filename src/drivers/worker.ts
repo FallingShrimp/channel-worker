@@ -1,21 +1,13 @@
-import { defineDriver } from "channel-slot/client/driver";
+import { defineDriver } from "channel-slot/client";
 
-export default defineDriver<Worker, [string]>(() => {
-    const clients: Worker[] = [];
-    return {
-        subscribe(callback) {
-            clients.forEach(w => w.addEventListener("message", e => callback(e.data)));
-        },
-        emit(event) {
-            clients.forEach(w => w.postMessage(event));
-        },
-        create(url) {
-            const instance = new Worker(url);
-            clients.push(instance);
-            return instance;
-        },
-        stamp() {
-            return performance.now()
-        },
-    };
-});
+export default defineDriver<Worker, [url: string]>((context) => ({
+    create(url) {
+        return new Worker(url);
+    },
+    subscribe(callback, client) {
+        client.addEventListener("message", e => callback(e.data));
+    },
+    emit(event) {
+        context.clients.forEach(c => c.postMessage(event));
+    },
+}));

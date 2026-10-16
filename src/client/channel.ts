@@ -1,8 +1,8 @@
 import { Events } from "./events";
-import { MessageDriver } from "./protocol";
+import { DriverClient } from "./protocol";
 
 export class ChannelSlot<T> {
-    private drivers: MessageDriver<unknown, unknown[], T>[];
+    private drivers: DriverClient<unknown, unknown[], T>[];
 
     constructor(public name: string, private currentValue: T) {
         this.drivers = [];
@@ -23,10 +23,13 @@ export class ChannelSlot<T> {
         this.drivers.forEach(d => d.emit({ ...event, type, timestamp: d.stamp() }));
     }
 
-    public listen(driver: MessageDriver<unknown, unknown[], T>) {
-        this.drivers.push(driver);
-        driver.subscribe((e) => {
-            if (e.type === "sync") { this.update(e.data); }
-        });
+    public drive(...drivers: DriverClient<unknown, unknown[], T>[]) {
+        for (const driver of drivers) {
+            this.drivers.push(driver);
+            driver.subscribe((e) => {
+                if (e.type === "sync") { this.update(e.data); }
+            });
+        }
+        return this;
     }
 }

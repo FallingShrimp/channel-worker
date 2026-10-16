@@ -1,8 +1,10 @@
 import { Events } from "./events";
 
-export interface MessageDriver<C = unknown, I extends unknown[] = [], E = unknown> {
-    create(...args: I): C;
-    subscribe(callback: (event: Events<E>) => void): void;
+export interface DriverClient<ClientType = unknown, ClientInit extends unknown[] = [], EventType = unknown> {
+    create(...args: ClientInit): ClientType;
+    subscribe(callback: (event: Events<EventType>) => void, client: ClientType): void;
     emit(event: Events): void;
-    stamp(): number;
+}
+export interface DriverContext<D extends DriverClient = DriverClient> {
+    clients: D extends DriverClient<infer P, infer _, infer _> ? P[] : never[];
 }
