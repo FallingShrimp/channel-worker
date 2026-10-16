@@ -7,9 +7,9 @@ const url = toWorkerUrl(code, { a: 1, b: 2, c: 3 });
 text.drive(WorkerDriver<string>().addClient(url));
 
 function next() {
-    console.log("top", text.value);
+    console.log("top", text.value, text.generation);
     text.value += "!";
-    console.log("update", text.generation);
+    console.log("top update", text.generation);
     setTimeout(next, 2000);
 }
 next();

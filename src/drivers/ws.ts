@@ -5,7 +5,7 @@ export default createDriver<WebSocket, [url: string]>((context) => ({
         return new WebSocket(url);
     },
     subscribe(callback) {
-        context.clients.forEach(c => c.addEventListener("message", e => callback(e.data)));
+        context.clients.forEach(c => c.addEventListener("message", e => callback(JSON.parse(e.data))));
     },
     emit(event) {
         context.clients.forEach(c => c.send(JSON.stringify(event)));

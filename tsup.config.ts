@@ -7,6 +7,7 @@ export default tsup.defineConfig({
     dts: true,
     noExternal: [/(.*)/],
     esbuildPlugins: [
+        // 这个插件是AI写的。
         {
             name: 'raw-loader',
             setup(build) {
